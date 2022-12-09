@@ -6,9 +6,16 @@
       /* CSS styles for the poker game table and elements */
       .table {
         width: 600px;
-        height: 400px;
+        height: 600px;
         border: 2px solid black;
         margin: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 50%;
+        background-color: green;
       }
       .player {
         width: 150px;
@@ -29,6 +36,32 @@
         margin: auto;
         text-align: center;
         font-weight: bold;
+      }
+      .player {
+        width: 150px;
+        height: 150px;
+        border: 2px solid black;
+        position: absolute; /* position the players absolutely */
+        top: 200px; /* position players around the table */
+        left: 25px;
+      }
+      #player2 {
+        left: 225px;
+      }
+      #player3 {
+        left: 425px;
+      }
+      #player4 {
+        top: 0;
+        left: 225px;
+      }
+      #player5 {
+        top: 400px;
+        left: 225px;
+      }
+      #player6 {
+        top: 200px;
+        left: 525px;
       }
     </style>
   </head>
