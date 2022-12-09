@@ -17,12 +17,7 @@
         border-radius: 50%;
         background-color: green;
       }
-      .player {
-        width: 150px;
-        height: 150px;
-        border: 2px solid black;
-        float: left;
-      }
+
       .cards {
         width: 120px;
         height: 120px;
@@ -45,23 +40,23 @@
         top: 200px; /* position players around the table */
         left: 25px;
       }
+      #player1 {
+        transform: translate(-50%, -100%);
+      }
       #player2 {
-        left: 225px;
+        transform: translate(100%, -50%);
       }
       #player3 {
-        left: 425px;
+        transform: translate(-50%, -100%);
       }
       #player4 {
-        top: 0;
-        left: 225px;
+        transform: translate(-50%, -100%);
       }
       #player5 {
-        top: 400px;
-        left: 225px;
+        transform: translate(-50%, -100%);
       }
       #player6 {
-        top: 200px;
-        left: 525px;
+        transform: translate(-50%, -100%);
       }
     </style>
   </head>
@@ -77,4 +72,37 @@
       <div class="pot" id="pot"></div>
     </div>
   </body>
+  <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const status = document.getElementById("status");
+      const messages = document.getElementById("messages");
+
+      const appendMessage = (content) => {
+        const item = document.createElement("li");
+        item.textContent = content;
+        messages.appendChild(item);
+      };
+
+      const socket = io({
+        // Socket.IO options
+      });
+
+      socket.on("connect", () => {
+        status.innerText = "Connected";
+        appendMessage(`event: connect | session id: ${socket.id}`);
+      });
+
+      socket.on("connect_error", (err) => {
+        appendMessage(`event: connect_error | reason: ${err.message}`);
+      });
+
+      socket.on("disconnect", (reason) => {
+        status.innerText = "Disconnected";
+        appendMessage(`event: disconnect | reason: ${reason}`);
+      });
+
+      socket.onAny((event, ...args) => {
+        appendMessage(`event: ${event} | arguments: ${args}`);
+      });
+      </script>
 </html>
