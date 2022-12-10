@@ -11,6 +11,9 @@
     right: 0;
     border-radius: 50%;
     background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cards {
@@ -29,60 +32,34 @@
     font-weight: bold;
 }
 
-.container {
-    width: 100%;
-}
-
-.center {
-    text-align: center;
-}
-
-.player1,
-.player2,
-.player3,
-.player4,
-.player5,
-.player6 {
-    /* Position the player divs absolutely relative to the center div */
+.player {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    /* Use the transform property to move the divs around the center */
-    transform: translate(-50%, -50%);
-
-    /* Make sure the player divs are displayed as block elements */
-    display: block;
 }
 
-/* Adjust the positioning of the player divs as needed */
-.player1 {
-    top: 25%;
-    left: 25%;
+
+.deg0 {
+    transform: rotate(0deg) translate(300px);
 }
 
-.player2 {
-    top: 25%;
-    right: 25%;
+/* 12em = half the width of the wrapper */
+.deg45 {
+    transform: rotate(45deg) translate(300px);
 }
 
-.player3 {
-    bottom: 25%;
-    right: 25%;
+.deg135 {
+    transform: rotate(135deg) translate(300px);
 }
 
-.player4 {
-    bottom: 25%;
-    left: 25%;
+.deg180 {
+    transform: rotate(180deg) translate(300px);
 }
 
-.player5 {
-    top: 50%;
-    left: 75%;
+.deg225 {
+    transform: rotate(225deg) translate(300px);
 }
 
-.player6 {
-    top: 50%;
-    right: 75%;
+.deg315 {
+    transform: rotate(315deg) translate(300px);
 }
 
 #status {
