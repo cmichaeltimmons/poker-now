@@ -22,8 +22,15 @@
     <button class="action-btn" id="call">Call</button>
     <button class="action-btn" id="raise">Raise</button>
     <button class="action-btn" id="fold">Fold</button>
-  </div>
-  <div id="status"></div>
+    <div class="bet-controls">
+      <button class="bet-btn" id="quarter">1</button>
+      <button class="bet-btn" id="half">2</button>
+      <button class="bet-btn" id="pot">3</button>
+      <button class="bet-btn" id="all-in">4</button>
+      <input type="text" id="bet-input" />
+      <input type="range" id="bet-slider" />
+    </div>
+    <div id="status"></div>
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
