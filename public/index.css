@@ -1,0 +1,93 @@
+/* Make table green and round */
+.table {
+    width: 600px;
+    height: 600px;
+    border: 2px solid black;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.cards {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    background-color: white;
+    border: 2px solid black;
+}
+
+.pot {
+    width: 200px;
+    height: 50px;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
+.player1,
+.player2,
+.player3,
+.player4,
+.player5,
+.player6 {
+    /* Position the player divs absolutely relative to the center div */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Use the transform property to move the divs around the center */
+    transform: translate(-50%, -50%);
+
+    /* Make sure the player divs are displayed as block elements */
+    display: block;
+}
+
+/* Adjust the positioning of the player divs as needed */
+.player1 {
+    top: 25%;
+    left: 25%;
+}
+
+.player2 {
+    top: 25%;
+    right: 25%;
+}
+
+.player3 {
+    bottom: 25%;
+    right: 25%;
+}
+
+.player4 {
+    bottom: 25%;
+    left: 25%;
+}
+
+.player5 {
+    top: 50%;
+    left: 75%;
+}
+
+.player6 {
+    top: 50%;
+    right: 75%;
+}
+
+#status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 10px;
+}

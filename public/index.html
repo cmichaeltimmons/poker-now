@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Poker Game</title>
+
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <div class="table">
+    <div class="player" id="player1"></div>
+    <div class="player" id="player2"></div>
+    <div class="player" id="player3"></div>
+    <div class="player" id="player4"></div>
+    <div class="player" id="player5"></div>
+    <div class="player" id="player6"></div>
+    <div class="cards" id="community-cards"></div>
+    <div class="pot" id="pot"></div>
+  </div>
+  <div id="status"></div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const status = document.getElementById("status");
+  const messages = document.getElementById("messages");
+
+  const appendMessage = (content) => {
+    const item = document.createElement("li");
+    item.textContent = content;
+    messages.appendChild(item);
+  };
+
+  const socket = io({
+    // Socket.IO options
+  });
+
+  socket.on("connect", () => {
+    status.innerText = "Connected";
+    appendMessage(`event: connect | session id: ${socket.id}`);
+  });
+
+  socket.on("connect_error", (err) => {
+    appendMessage(`event: connect_error | reason: ${err.message}`);
+  });
+
+  socket.on("disconnect", (reason) => {
+    status.innerText = "Disconnected";
+    appendMessage(`event: disconnect | reason: ${reason}`);
+  });
+
+  socket.onAny((event, ...args) => {
+    appendMessage(`event: ${event} | arguments: ${args}`);
+  });
+</script>
+
+</html>
