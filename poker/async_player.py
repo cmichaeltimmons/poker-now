@@ -1,17 +1,19 @@
+
 import logging
 from typing import List
-
+from urllib import request
+import asyncio
+import aiohttp
 import numpy as np
 
 from poker.player import Player
 from poker.pot import Pot
 from poker.state import PokerGameState
 
-
 logger = logging.getLogger(__name__)
 
 
-class RandomPlayer(Player):
+class AsyncPlayer(Player):
     """Complete a dummy agent largely for development purposes.
     Extends the `poker_ai.game.player.Player` class so inherits all of that
     functionality.
@@ -37,19 +39,15 @@ class RandomPlayer(Player):
         if not np.isclose(prob_sum, 1.0):
             raise ValueError(f'Probabilities passed must sum to one.')
 
-    def _random_move(self, players: List[Player]):
-        """Make a random move."""
-        dice_roll = np.random.sample()
-        bound_1 = self.fold_probability
-        bound_2 = self.fold_probability + self.raise_probability
-        if 0.0 < dice_roll <= bound_1:
-            return self.fold()
-        elif bound_1 < dice_roll <= bound_2:
-            return self.raise_to(100)
-        else:
-            return self.call(players=players)
+    async def take_action(self, game_state: PokerGameState) -> PokerGameState:
 
-    def take_action(self, game_state: PokerGameState) -> PokerGameState:
+        #post self.name to localhost:3000 await response and catch error timeout after 61 seconds
+        session_timeout = aiohttp.ClientTimeout(total=61)
+        async with aiohttp.ClientSession(timeout=session_timeout) as session:
+            async with session.post('http://localhost:3000/action', data=self.name) as resp:
+                print(resp.status)
+                print(await resp.text())
+        
         action = self._random_move(players=game_state.table.players)
         logger.debug(f'{self.name} {action}')
         return PokerGameState(game_state, game_state.table, self, action, False)
