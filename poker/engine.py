@@ -34,10 +34,10 @@ class PokerEngine:
         self.state = PokerGameState.new_hand(self.table)
         self.wins_and_losses = []
 
-    def play_one_round(self):
+    async def play_one_round(self):
         """"""
         self.round_setup()
-        self._all_dealing_and_betting_rounds()
+        await self._all_dealing_and_betting_rounds()
         self.compute_winners()
         self._round_cleanup()
 
@@ -47,16 +47,16 @@ class PokerEngine:
         self._assign_order_to_players()
         self._assign_blinds()
 
-    def _all_dealing_and_betting_rounds(self):
+    async def _all_dealing_and_betting_rounds(self):
         """Run through dealing of all cards and all rounds of betting."""
         self.table.dealer.deal_private_cards(self.table.players)
-        self._betting_round(first_round=True)
+        await self._betting_round(first_round=True)
         self.table.dealer.deal_flop(self.table)
-        self._betting_round()
+        await self._betting_round()
         self.table.dealer.deal_turn(self.table)
-        self._betting_round()
+        await self._betting_round()
         self.table.dealer.deal_river(self.table)
-        self._betting_round()
+        await self._betting_round()
 
     def compute_winners(self):
         """Compute winners and payout the chips to respective players."""
@@ -165,28 +165,25 @@ class PokerEngine:
             return self.table.players[2:] + self.table.players[:2]
         return self.table.players
 
-    def _all_active_players_take_action(self, first_round: bool):
+    async def _all_active_players_take_action(self, first_round: bool):
         """Force all players to make a move."""
         # For every active player compute the move, but big and small
         # blind move last..
         for player in self._players_in_order_of_betting(first_round):
             if player.is_active:
-                self.state = player.take_action(self.state)
+                self.state = await player.take_action(self.state)
 
-    def _bet_until_everyone_has_bet_evenly(self):
+    async def _bet_until_everyone_has_bet_evenly(self):
         """Iteratively bet until all have put the same num chips in the pot."""
         # Ensure for the first move we do one round of betting.
         first_round = True
         logger.debug("Started round of betting.")
         while first_round or self.more_betting_needed:
-            print(first_round)
-            print(self.more_betting_needed)
-            self._all_active_players_take_action(first_round)
+            await self._all_active_players_take_action(first_round)
             first_round = False
-            print('here')
             logger.debug(f"> Betting iter, total: {sum(self.all_bets)}")
 
-    def _betting_round(self, first_round: bool = False):
+    async def _betting_round(self, first_round: bool = False):
         """Computes the round(s) of betting.
 
         Until the current betting round is complete, all active players take
@@ -194,7 +191,7 @@ class PokerEngine:
         lasts until all players either call the highest placed bet or fold.
         """
         if self.n_players_with_moves > 1:
-            self._bet_until_everyone_has_bet_evenly()
+            await self._bet_until_everyone_has_bet_evenly()
             logger.debug(
                 f"Finished round of betting, {self.n_active_players} active "
                 f"players, {self.n_all_in_players} all in players."

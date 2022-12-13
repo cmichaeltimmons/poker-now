@@ -12,6 +12,13 @@ io.on('connection', (socket) => {
   });
 });
 
+app.post('/action', async (req, res) => {
+  // await 63 secondd
+  await new Promise(resolve => setTimeout(resolve, 63000));
+
+  res.send('POST request to the homepage');
+})
+
 http.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });

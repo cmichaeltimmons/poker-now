@@ -1,7 +1,9 @@
 
 import logging
 from typing import List
-
+from urllib import request
+import asyncio
+import aiohttp
 import numpy as np
 
 from poker.player import Player
@@ -49,7 +51,15 @@ class RandomPlayer(Player):
         else:
             return self.call(players=players)
 
-    def take_action(self, game_state: PokerGameState) -> PokerGameState:
+    async def take_action(self, game_state: PokerGameState) -> PokerGameState:
+
+        #post self.name to localhost:3000 await response and catch error timeout after 61 seconds
+        session_timeout = aiohttp.ClientTimeout(total=61)
+        async with aiohttp.ClientSession(timeout=session_timeout) as session:
+            async with session.post('http://localhost:3000/action', data=self.name) as resp:
+                print(resp.status)
+                print(await resp.text())
+        
         action = self._random_move(players=game_state.table.players)
         logger.debug(f'{self.name} {action}')
         return PokerGameState(game_state, game_state.table, self, action, False)
