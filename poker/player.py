@@ -37,8 +37,6 @@ class Player:
         self.id = int(uuid.uuid4().hex, 16)
         self.pot = pot
         self.order = None
-        self.is_small_blind = False
-        self.is_big_blind = False
         self.is_dealer = False
 
     def __repr__(self):
@@ -108,7 +106,6 @@ class Player:
         action, agents receive the current game state and have to emit the next
         state.
         """
-        print(game_state)
         pass
 
     @property
@@ -141,7 +138,5 @@ class Player:
             'is_active': self.is_active,
             'id': self.id,
             'order': self.order,
-            'is_small_blind': self.is_small_blind,
-            'is_big_blind': self.is_big_blind,
             'is_dealer': self.is_dealer,
         }
