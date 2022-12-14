@@ -22,6 +22,23 @@ class PokerGameState:
             self._previous_state, self._table, self._player, self._action
         )
 
+    @property
+    def json(self):
+        return {
+            "table": self._table.json,
+            "player": self._player.json,
+            "action": self._action,
+        }
+
+    def json_to_PokerGameState(self, json):
+        return PokerGameState(
+            previous_state=json["previous_state"],
+            table=json["table"],
+            player=json["player"],
+            action=json["action"],
+            is_terminal=False,
+        )
+
     @classmethod
     def new_hand(cls, table):
         return PokerGameState(

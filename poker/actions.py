@@ -47,3 +47,19 @@ class AbstractedRaise(Action):
     @property
     def allowed_amounts(self):
         return self.amounts
+
+
+def get_action(action_name, allowed_amounts=None):
+    if action_name == "call":
+        return Call()
+    elif action_name == "fold":
+        return Fold()
+    elif action_name == "raise":
+        if allowed_amounts is None:
+            raise Exception(
+                "You must specify the allowed amounts for the raise action "
+                "abstraction"
+            )
+        return AbstractedRaise(allowed_amounts)
+    else:
+        raise Exception(f"Unknown action '{action_name}'")

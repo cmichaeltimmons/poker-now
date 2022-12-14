@@ -130,3 +130,18 @@ class Player:
     def n_bet_chips(self) -> int:
         """Returns the n_chips this player has bet so far."""
         return self.pot[self]
+
+    @property
+    def json(self):
+        """Return a JSON representation of the player."""
+        return {
+            'name': self.name,
+            'n_chips': self.n_chips,
+            'cards': [c.json for c in self.cards],
+            'is_active': self.is_active,
+            'id': self.id,
+            'order': self.order,
+            'is_small_blind': self.is_small_blind,
+            'is_big_blind': self.is_big_blind,
+            'is_dealer': self.is_dealer,
+        }

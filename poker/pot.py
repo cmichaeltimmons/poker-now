@@ -62,3 +62,12 @@ class Pot:
     def total(self):
         """Return the total in the pot from all players."""
         return sum(self._pot.values())
+
+    @property
+    def json(self):
+        """Get a json representation of the pot."""
+        return {
+            'uid': self.uid,
+            'total': self.total,
+            'side_pots': [dict(p) for p in self.side_pots],
+        }

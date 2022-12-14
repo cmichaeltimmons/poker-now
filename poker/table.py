@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from typing import List, TYPE_CHECKING
+from typing import List
 
-from .dealer import Dealer
-
-if TYPE_CHECKING:
-    from .player import Player
-    from .pot import Pot
-    from .cards import Card
+from poker.dealer import Dealer
+from poker.player import Player
+from poker.card import Card
+from poker.pot import Pot
 
 
 class PokerTable:
@@ -49,3 +47,13 @@ class PokerTable:
         """Get a nice print out in the debugger for the table."""
         player_names = [player.name for player in self.players]
         return f"<PokerTable players={player_names}>"
+
+    @property
+    def json(self):
+        """Get a json representation of the table."""
+        return {
+            'players': [p.json for p in self.players],
+            'pot': self.pot.json,
+            'community_cards': [c.json for c in self.community_cards],
+            'n_games': self.n_games,
+        }

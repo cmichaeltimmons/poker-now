@@ -101,6 +101,11 @@ class Card:
         """Get the suit."""
         return self._suit
 
+    @property
+    def json(self) -> Dict:
+        """Get the json representation of the card."""
+        return {"rank": self.rank, "suit": self.suit}
+
     def _str_to_rank(self, string: str) -> int:
         """Convert the string rank to the integer rank."""
         return {
@@ -185,4 +190,3 @@ class Card:
         if set(x) != {"rank", "suit"}:
             raise NotImplementedError(f"Unrecognised dict {x}")
         return Card(rank=x["rank"], suit=x["suit"])
-

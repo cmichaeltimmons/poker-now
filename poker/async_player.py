@@ -41,13 +41,14 @@ class AsyncPlayer(Player):
 
     async def take_action(self, game_state: PokerGameState) -> PokerGameState:
 
-        #post self.name to localhost:3000 await response and catch error timeout after 61 seconds
+        # post self.name to localhost:3000 await response and catch error timeout after 61 seconds
         session_timeout = aiohttp.ClientTimeout(total=61)
         async with aiohttp.ClientSession(timeout=session_timeout) as session:
             async with session.post('http://localhost:3000/action', data=self.name) as resp:
                 print(resp.status)
                 print(await resp.text())
-        
-        action = self._random_move(players=game_state.table.players)
+                action = await resp.text()
+                if action == 'fold':
+                    self.fold()
         logger.debug(f'{self.name} {action}')
-        return PokerGameState(game_state, game_state.table, self, action, False)
+        return PokerGameState(game_state, game_state.table, self, 'call', False)
