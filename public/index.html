@@ -11,29 +11,46 @@
   <div class="table">
     <div class="player deg0" id="player1">
       <div class="cards" id="player1-cards"></div>
-      <div class="bet" id="player1-bet"></div>
+      <div class="inner-container">
+        <div class="name" id="player1-name"></div>
+        <div class="bet" id="player1-bet"></div>
+      </div>
     </div>
     <div class="player deg45" id="player2">
       <div class="cards" id="player2-cards"></div>
+      <div class="name" id="player2-name"></div>
       <div class="bet" id="player2-bet"></div>
     </div>
     <div class="player deg135" id="player3">
       <div class="cards" id="player3-cards"></div>
-      <div class="bet" id="player3-bet"></div>
+      <div class="inner-container">
+        <div class="name" id="player3-name"></div>
+        <div class="bet" id="player3-bet"></div>
+      </div>
     </div>
     <div class="player deg180" id="player4">
       <div class="cards" id="player4-cards"></div>
-      <div class="bet" id="player4-bet"></div>
+      <div class="inner-container">
+        <div class="name" id="player4-name"></div>
+        <div class="bet" id="player4-bet"></div>
+      </div>
     </div>
     <div class="player deg225" id="player5">
       <div class="cards" id="player5-cards"></div>
-      <div class="bet" id="player5-bet"></div>
+      <div class="inner-container">
+        <div class="name" id="player5-name"></div>
+        <div class="bet" id="player5-bet"></div>
+      </div>
     </div>
     <div class="player deg315" id="player6">
       <div class="cards" id="player6-cards"></div>
-      <div class="bet" id="player6-bet"></div>
+      <div class="inner-container">
+        <div class="name" id="player6-name"></div>
+        <div class="bet" id="player6-bet"></div>
+      </div>
     </div>
     <div class="cards" id="community-cards">
+      <div class="card" id="card1"></div>
       <div class="card" id="card1"></div>
       <div class="card" id="card2"></div>
       <div class="card" id="card3"></div>
@@ -57,7 +74,9 @@
       <input type="range" id="bet-slider" />
     </div>
   </div>
+  <div id="messages"></div>
   <div id="status"></div>
+  <script src="sampleState.js"></script>
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
